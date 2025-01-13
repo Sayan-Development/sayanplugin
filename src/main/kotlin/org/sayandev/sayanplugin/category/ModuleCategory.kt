@@ -60,7 +60,7 @@ object ModuleCategory : List<Element> by listOf<Element>(
                     DropDownElement("runpaper_version", "RunPaper Version", {
                         CompletableDeferred(
                             JsonConnection("https://api.github.com/repos/jpenilla/run-task/releases").fetch()
-                                .asJsonArray.mapNotNull { it.asJsonObject.get("tag_name")?.asString }
+                                .asJsonArray.mapNotNull { it.asJsonObject.get("tag_name")?.asString?.removePrefix("v") }
                         )
                     }, null, true),
                     DropDownElement("minecraft_version", "Minecraft Version", {

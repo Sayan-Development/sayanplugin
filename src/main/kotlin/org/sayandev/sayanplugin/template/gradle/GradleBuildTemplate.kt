@@ -240,7 +240,7 @@ tasks {
     ${
         if (addPluginYamlBukkitCheckBox.selected) {
 """
-pluginYml {
+bukkit {
     main = "${'$'}group.${'$'}{rootProject.name.lowercase()}.${'$'}{rootProject.name}Plugin"
     version = rootProject.version.toString()
     ${

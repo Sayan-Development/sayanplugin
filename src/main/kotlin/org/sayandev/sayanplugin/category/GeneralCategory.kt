@@ -22,6 +22,16 @@ object GeneralCategory: List<Element> by listOf<Element>(
                 }
         )
     }, null),
+    DropDownElement("gradle_version", "Gradle Version", {
+        CompletableDeferred(
+            JsonConnection("https://services.gradle.org/versions/all").fetch().asJsonArray
+                .mapNotNull { element ->
+                    val jsonObject = element.asJsonObject
+                    val version = jsonObject.get("version").asString
+                    if (!jsonObject.get("snapshot").asBoolean && !version.contains("milestone") && !version.contains("rc")) version else null
+                }
+        )
+    }, null),
     InputElement("group", "Group", "org.sayandev"),
     InputElement("version", "Version", "1.0.0-SNAPSHOT"),
     InputElement("description", "Description", null),

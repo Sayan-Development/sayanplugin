@@ -14,6 +14,7 @@ import org.sayandev.sayanplugin.template.ClassMainBungeeTemplate
 import org.sayandev.sayanplugin.template.ClassMainVelocityTemplate
 import org.sayandev.sayanplugin.template.gradle.GradleBuildTemplate
 import org.sayandev.sayanplugin.template.gradle.GradleSettingsTemplate
+import org.sayandev.sayanplugin.template.gradle.GradleWrapperTemplate
 
 class StickyNoteModuleBuilder : ModuleBuilder() {
     override fun getModuleType(): ModuleType<*> {
@@ -34,10 +35,14 @@ class StickyNoteModuleBuilder : ModuleBuilder() {
         sourceRoot.parent.createChildData(this, "build.gradle.kts").setBinaryContent(buildGradleFile.toByteArray())
         val settingsGradleFile = GradleSettingsTemplate().template
         sourceRoot.parent.createChildData(this, "settings.gradle.kts").setBinaryContent(settingsGradleFile.toByteArray())
+        val weapperGradleFile = GradleWrapperTemplate().template
+        val gradleDirectory = sourceRoot.parent.createChildDirectory(this, "gradle")
+        val wrapperDirectory = gradleDirectory.createChildDirectory(this, "wrapper")
+        wrapperDirectory.createChildData(this, "gradle-wrapper.properties").setBinaryContent(weapperGradleFile.toByteArray())
         val groupInput = DataManager.getTypedElement<InputElement>("group")!!
         var lastPart: VirtualFile? = null
         for (part in groupInput.field.text.split(".")) {
-            lastPart = lastPart?.createChildDirectory(this, part) ?: sourceRoot.createChildDirectory(this, part)
+            lastPart = (lastPart?.createChildDirectory(this, part) ?: sourceRoot.createChildDirectory(this, part))
         }
         lastPart!!
 
