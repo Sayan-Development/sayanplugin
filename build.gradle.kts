@@ -10,17 +10,13 @@ version = "1.0.1-SNAPSHOT"
 repositories {
     mavenCentral()
 }
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
+
 intellij {
     version.set("2024.1.7")
-    type.set("IC") // Target IDE Platform1
-
-    plugins.set(listOf(/* Plugin Dependencies */))
+    type.set("IC")
 }
 
 tasks {
-    // Set the JVM compatibility versions
     withType<JavaCompile> {
         sourceCompatibility = "17"
         targetCompatibility = "17"
