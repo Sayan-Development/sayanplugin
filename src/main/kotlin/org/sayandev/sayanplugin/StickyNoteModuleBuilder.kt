@@ -44,7 +44,7 @@ class StickyNoteModuleBuilder : ModuleBuilder() {
         val kotlinDirectory = mainDirectory.createChildDirectory(this, "kotlin")
         val groupInput = DataManager.getTypedElement<InputElement>("group")!!
         var lastPart: VirtualFile? = null
-        for (part in groupInput.field.text.split(".")) {
+        for (part in groupInput.field.text.plus(".${DataManager.context.projectName.lowercase()}").split(".")) {
             lastPart = (lastPart?.createChildDirectory(this, part) ?: kotlinDirectory.createChildDirectory(this, part))
         }
         lastPart!!
