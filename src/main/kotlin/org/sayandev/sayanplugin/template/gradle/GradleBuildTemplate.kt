@@ -15,7 +15,7 @@ class GradleBuildTemplate {
     val authorsInput = DataManager.getTypedElement<InputElement>("authors")!!
     val javaVersionDropDown = DataManager.getTypedElement<DropDownElement>("java_version")!!
 
-    val stickyNoteCoreModuleCheckBox = DataManager.getTypedElement<CheckBoxElement>("stickynote_core")!!
+    //val stickyNoteCoreModuleCheckBox = DataManager.getTypedElement<CheckBoxElement>("stickynote_core")!!
     val stickyNoteLoaderModuleCheckBox = DataManager.getTypedElement<CheckBoxElement>("stickynote_loader")!!
 
     val stickyNoteBukkitModuleCheckBox = DataManager.getTypedElement<CheckBoxElement>("stickynote_bukkit")!!
@@ -79,9 +79,10 @@ plugins {
         }
 
         val modules = mutableListOf<String>()
-        if (stickyNoteCoreModuleCheckBox.selected) {
+        // core is there by default
+        /*if (stickyNoteCoreModuleCheckBox.selected) {
             modules.add("StickyNoteModules.CORE")
-        }
+        }*/
         if (stickyNoteBukkitModuleCheckBox.selected) {
             modules.add("StickyNoteModules.BUKKIT")
         }
@@ -241,7 +242,7 @@ tasks {
         if (addPluginYamlBukkitCheckBox.selected) {
 """
 bukkit {
-    main = "${'$'}group.${'$'}{rootProject.name.lowercase()}.${'$'}{rootProject.name}Plugin"
+    main = "${'$'}group.${'$'}{rootProject.name}Plugin"
     version = rootProject.version.toString()
     ${
         if (websiteInput.field.text.isNotEmpty()) {
