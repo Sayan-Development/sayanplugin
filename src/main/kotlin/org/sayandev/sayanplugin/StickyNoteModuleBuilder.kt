@@ -39,10 +39,13 @@ class StickyNoteModuleBuilder : ModuleBuilder() {
         val gradleDirectory = sourceRoot.parent.createChildDirectory(this, "gradle")
         val wrapperDirectory = gradleDirectory.createChildDirectory(this, "wrapper")
         wrapperDirectory.createChildData(this, "gradle-wrapper.properties").setBinaryContent(weapperGradleFile.toByteArray())
+
+        val mainDirectory = sourceRoot.createChildDirectory(this, "main")
+        val kotlinDirectory = mainDirectory.createChildDirectory(this, "kotlin")
         val groupInput = DataManager.getTypedElement<InputElement>("group")!!
         var lastPart: VirtualFile? = null
         for (part in groupInput.field.text.split(".")) {
-            lastPart = (lastPart?.createChildDirectory(this, part) ?: sourceRoot.createChildDirectory(this, part))
+            lastPart = (lastPart?.createChildDirectory(this, part) ?: kotlinDirectory.createChildDirectory(this, part))
         }
         lastPart!!
 
