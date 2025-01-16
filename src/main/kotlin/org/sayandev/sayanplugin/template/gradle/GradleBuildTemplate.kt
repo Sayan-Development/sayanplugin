@@ -170,17 +170,17 @@ tasks {
                     runPaperPluginList.plugins.map { plugin -> 
                         when (plugin.type) {
                             "modrinth" -> {
-                                "modrinth(\"${plugin.name}\", \"${plugin.version}\")"
+                                "                modrinth(\"${plugin.name}\", \"${plugin.version}\")"
                             }
                             "hangar" -> {
-                                "hangar(\"${plugin.name}\", \"${plugin.version}\")"
+                                "                hangar(\"${plugin.name}\", \"${plugin.version}\")"
                             }
                             "url" -> {
-                                "url(\"${plugin.url}\")"
+                                "                url(\"${plugin.url}\")"
                             }
                             else -> { }
                         }
-                    }.joinToString("                \n")
+                    }.joinToString("\n")
                 }
             }"""
                     } else { "<empty>" }
