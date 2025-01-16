@@ -259,7 +259,7 @@ bukkit {
     
     depend = listOf()
     
-    authors = listOf(${authorsInput.field.text})
+    authors = listOf(${authorsInput.field.text.split(",").joinToString(", ") { "\"${it.trim()}\"" }})
     prefix = rootProject.name
 }"""
         } else { "<empty>" }
