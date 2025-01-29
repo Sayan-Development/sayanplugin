@@ -5,6 +5,7 @@ import com.intellij.ide.util.projectWizard.WizardContext
 import com.intellij.ui.components.JBScrollPane
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.awt.BorderLayout
 import java.awt.Dimension
@@ -33,6 +34,6 @@ class StickyNoteModuleWizardStep(
     }
 
     override fun updateDataModel() {
-
+        DataManager.initialize(context)
     }
 }

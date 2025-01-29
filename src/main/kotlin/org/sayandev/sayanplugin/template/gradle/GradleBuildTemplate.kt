@@ -242,7 +242,7 @@ tasks {
         if (addPluginYamlBukkitCheckBox.selected) {
 """
 bukkit {
-    main = "${'$'}group.${'$'}{rootProject.name}Plugin"
+    main = "${'$'}group.${'$'}{rootProject.name.lowercase()}.${'$'}{rootProject.name}Plugin"
     version = rootProject.version.toString()
     ${
         if (websiteInput.field.text.isNotEmpty()) {

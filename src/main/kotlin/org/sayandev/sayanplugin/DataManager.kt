@@ -42,8 +42,8 @@ object DataManager {
     lateinit var context: WizardContext
 
     fun initialize(context: WizardContext) {
-        if (elements.isNotEmpty()) return
         this.context = context
+        if (elements.isNotEmpty()) return
 
         panel.layout = GridBagLayout()
 
