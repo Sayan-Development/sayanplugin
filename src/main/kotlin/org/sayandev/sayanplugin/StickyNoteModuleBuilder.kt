@@ -5,7 +5,11 @@ import com.intellij.ide.util.projectWizard.ModuleWizardStep
 import com.intellij.ide.util.projectWizard.WizardContext
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.module.ModuleType
+import com.intellij.openapi.projectRoots.ProjectJdkTable
+import com.intellij.openapi.projectRoots.Sdk
+import com.intellij.openapi.projectRoots.SdkType
 import com.intellij.openapi.roots.ModifiableRootModel
+import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import org.sayandev.sayanplugin.element.elements.CheckBoxElement
 import org.sayandev.sayanplugin.element.elements.InputElement
@@ -28,6 +32,8 @@ class StickyNoteModuleBuilder : ModuleBuilder() {
             contentEntry.addSourceFolder(sourceRoot, false)
             generateFiles(sourceRoot)
         }
+
+        modifiableRootModel.sdk = ProjectJdkTable.getInstance().allJdks.first { it.name.contains("17") }
     }
 
     private fun generateFiles(sourceRoot: VirtualFile) {
