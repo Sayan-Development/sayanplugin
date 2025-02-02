@@ -165,24 +165,24 @@ tasks {
                 ${
                     if (runPaperPluginList.plugins.isNotEmpty()) {
         """
-            downloadPlugins {
-                ${
-                    runPaperPluginList.plugins.map { plugin -> 
-                        when (plugin.type) {
-                            "modrinth" -> {
-                                "                modrinth(\"${plugin.name}\", \"${plugin.version}\")"
-                            }
-                            "hangar" -> {
-                                "                hangar(\"${plugin.name}\", \"${plugin.version}\")"
-                            }
-                            "url" -> {
-                                "                url(\"${plugin.url}\")"
-                            }
-                            else -> { }
-                        }
-                    }.joinToString("\n")
-                }
-            }"""
+        downloadPlugins {
+${
+    runPaperPluginList.plugins.map { plugin -> 
+        when (plugin.type) {
+            "modrinth" -> {
+                "                modrinth(\"${plugin.name}\", \"${plugin.version}\")"
+            }
+            "hangar" -> {
+                "                hangar(\"${plugin.name}\", \"${plugin.version}\")"
+            }
+            "url" -> {
+                "                url(\"${plugin.url}\")"
+            }
+            else -> { }
+        }
+    }.joinToString("\n")
+}
+        }"""
                     } else { "<empty>" }
                 }"""
         }
@@ -242,7 +242,7 @@ tasks {
         if (addPluginYamlBukkitCheckBox.selected) {
 """
 bukkit {
-    main = "${'$'}group.${'$'}{rootProject.name.lowercase()}.${'$'}{rootProject.name}Plugin"
+    main = "${'$'}group.${'$'}{slug}.${'$'}{rootProject.name}Plugin"
     version = rootProject.version.toString()
     ${
         if (websiteInput.field.text.isNotEmpty()) {

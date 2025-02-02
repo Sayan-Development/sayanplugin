@@ -106,9 +106,6 @@ object DataManager {
                     add(JPanel().apply { preferredSize = Dimension(previousMargin, 0) })
                     add(subComponent)
                 }, constraints)
-//                panel.add(JPanel().apply { preferredSize = Dimension(previousMargin + 25, 0) }, constraints)
-//                subComponent.border = JBUI.Borders.emptyLeft(previousMargin + 25)
-//                panel.add(subComponent, constraints)
             }
             if (subElement.children.isNotEmpty()) {
                 addBorderToElement(subElement, previousMargin + 25, constraints, panel)

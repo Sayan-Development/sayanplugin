@@ -2,11 +2,12 @@ package org.sayandev.sayanplugin
 
 import com.intellij.ide.util.projectWizard.ModuleWizardStep
 import com.intellij.ide.util.projectWizard.WizardContext
+import com.intellij.openapi.ui.Messages
 import com.intellij.ui.components.JBScrollPane
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.sayandev.sayanplugin.element.elements.DropDownElement
 import java.awt.BorderLayout
 import java.awt.Dimension
 import javax.swing.BorderFactory
@@ -22,6 +23,14 @@ class StickyNoteModuleWizardStep(
         GlobalScope.launch {
             DataManager.initialize(context)
         }
+    }
+
+    override fun validate(): Boolean {
+        val isValid = DataManager.elements.filterIsInstance<DropDownElement>().all { !it.loading }
+        if (!isValid) {
+            Messages.showErrorDialog("Please wait for the data to load", "LOADING DATA")
+        }
+        return isValid
     }
 
     override fun getComponent(): JComponent {

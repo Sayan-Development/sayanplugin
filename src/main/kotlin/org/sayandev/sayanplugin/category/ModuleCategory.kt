@@ -37,6 +37,9 @@ object ModuleCategory : List<Element> by listOf<Element>(
             }
             element.update()
         }, children = listOf(
+            CheckBoxElement("generate_settings_config", "Generate Settings Config"),
+            CheckBoxElement("generate_language_config", "Generate Language Config"),
+            CheckBoxElement("generate_main_command", "Generate Main Command"),
             CheckBoxElement("stickynote_bukkit_nms", "StickyNote Bukkit NMS"),
             DropDownElement("paper_version", "Paper Version", {
                 CompletableDeferred(

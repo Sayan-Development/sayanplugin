@@ -7,7 +7,7 @@ class ClassMainBungeeTemplate {
     val groupInput = DataManager.getTypedElement<InputElement>("group")!!
 
     val template = """
-        package ${groupInput.field.text}
+        package ${groupInput.field.text}.${DataManager.context.projectName.lowercase()}
         
         import net.md_5.bungee.api.plugin.Plugin
         import org.sayandev.stickynote.bungeecord.StickyNote
