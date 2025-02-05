@@ -43,8 +43,8 @@ class GradleBuildTemplate {
     val processResources = DataManager.getTypedElement<CheckBoxElement>("process_resources")!!
 
     val template = StringBuilder().apply {
-        if (runPaperCheckBox.selected) {
-            appendLine("import net.minecrell.pluginyml.bukkit.BukkitPluginDescription")
+        if (addPluginYamlBukkitCheckBox.selected) {
+            appendLine("import de.eldoria.pluginyml.bukkit.BukkitPluginDescription")
         }
         appendLine("import org.sayandev.plugin.StickyNoteModules")
 
@@ -59,7 +59,7 @@ plugins {
     }
     ${
         if (addPluginYamlBukkitCheckBox.selected) {
-            "id(\"net.minecrell.plugin-yml.bukkit\") version \"${addPluginYamlBukkitDropDown.comboBox.selectedItem as String}\""
+            "id(\"de.eldoria.plugin-yml.bukkit\") version \"${addPluginYamlBukkitDropDown.comboBox.selectedItem as String}\""
         } else { "<empty>" }
     }
     ${
@@ -170,13 +170,13 @@ ${
     runPaperPluginList.plugins.map { plugin -> 
         when (plugin.type) {
             "modrinth" -> {
-                "                modrinth(\"${plugin.name}\", \"${plugin.version}\")"
+                "           modrinth(\"${plugin.name}\", \"${plugin.version}\")"
             }
             "hangar" -> {
-                "                hangar(\"${plugin.name}\", \"${plugin.version}\")"
+                "           hangar(\"${plugin.name}\", \"${plugin.version}\")"
             }
             "url" -> {
-                "                url(\"${plugin.url}\")"
+                "           url(\"${plugin.url}\")"
             }
             else -> { }
         }

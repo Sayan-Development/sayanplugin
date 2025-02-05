@@ -9,7 +9,7 @@ import org.sayandev.stickynote.bukkit.command.required
 import org.sayandev.stickynote.bukkit.extension.sendComponent
 import org.sayandev.stickynote.bukkit.plugin
 
-class %plugin_name%Command : BukkitCommand(plugin.name.lowercase()) {
+object %plugin_name%Command : BukkitCommand(plugin.name.lowercase()) {
     override fun rootBuilder(builder: MutableCommandBuilder<BukkitSender>) {
         builder.permission("${plugin.name.lowercase()}.commands.${plugin.name.lowercase()}.use")
         builder.handler { context ->

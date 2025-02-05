@@ -11,7 +11,7 @@ class GradleSettingsTemplate {
         "id(\"org.sayandev.stickynote.settings\") version \"${stickyNoteVersion.comboBox.selectedItem as String}\""
     ).apply {
         if (DataManager.getTypedElement<CheckBoxElement>("debug_tools")!!.selected) {
-            add("id(\"org.gradle.toolchains.foojay-resolver-convention\") version \"0.9.0\"")
+            add("   id(\"org.gradle.toolchains.foojay-resolver-convention\") version \"0.9.0\"")
         }
     }
 
