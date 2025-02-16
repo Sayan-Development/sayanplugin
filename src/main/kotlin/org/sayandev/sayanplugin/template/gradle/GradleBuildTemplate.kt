@@ -43,9 +43,6 @@ class GradleBuildTemplate {
     val processResources = DataManager.getTypedElement<CheckBoxElement>("process_resources")!!
 
     val template = StringBuilder().apply {
-        if (addPluginYamlBukkitCheckBox.selected) {
-            appendLine("import de.eldoria.pluginyml.bukkit.BukkitPluginDescription")
-        }
         appendLine("import org.sayandev.plugin.StickyNoteModules")
 
         appendLine("""
@@ -170,13 +167,13 @@ ${
     runPaperPluginList.plugins.map { plugin -> 
         when (plugin.type) {
             "modrinth" -> {
-                "           modrinth(\"${plugin.name}\", \"${plugin.version}\")"
+                "            modrinth(\"${plugin.name}\", \"${plugin.version}\")"
             }
             "hangar" -> {
-                "           hangar(\"${plugin.name}\", \"${plugin.version}\")"
+                "            hangar(\"${plugin.name}\", \"${plugin.version}\")"
             }
             "url" -> {
-                "           url(\"${plugin.url}\")"
+                "            url(\"${plugin.url}\")"
             }
             else -> { }
         }
@@ -187,7 +184,7 @@ ${
                 }"""
         }
         jvmArgs(${
-            buildList<String> {
+            buildList {
                 if (allowLegacyFormattingCheckBox.selected) {
                     add("\"-Dnet.kyori.adventure.text.warnWhenLegacyFormattingDetected=false\"")
                 }
