@@ -89,6 +89,7 @@ class StickyNoteModuleBuilder : ModuleBuilder() {
         val settingsConfigCheckBox = DataManager.getTypedElement<CheckBoxElement>("generate_settings_config")!!
         val languageConfigCheckBox = DataManager.getTypedElement<CheckBoxElement>("generate_language_config")!!
         val commandConfigCheckBox = DataManager.getTypedElement<CheckBoxElement>("generate_main_command")!!
+        val dependencyPlaceholderAPIPapiExpansionCheckBox = DataManager.getTypedElement<CheckBoxElement>("generate_papiexpansion")!!
 
         if (settingsConfigCheckBox.selected) {
             val configDirectory = codePackage.findDirectory("config") ?: codePackage.createChildDirectory(this, "config")
@@ -108,6 +109,13 @@ class StickyNoteModuleBuilder : ModuleBuilder() {
                 .replace("%package%", "${groupInput.field.text}.${DataManager.context.projectName.lowercase()}.command")
                 .replace("%plugin_name%", DataManager.context.projectName)
             commandDirectory.createChildData(this, "${DataManager.context.projectName}Command.kt").setBinaryContent(mainCommandFile.toByteArray())
+        }
+
+        if (dependencyPlaceholderAPIPapiExpansionCheckBox.selected) {
+            val hookDirectory = codePackage.findDirectory("hook") ?: codePackage.createChildDirectory(this, "hook")
+            val papiExpansionFile = javaClass.getResource("/templates/PAPIExpansion.kt").readText()
+                .replace("%package%", "${groupInput.field.text}.${DataManager.context.projectName.lowercase()}.hook")
+            hookDirectory.createChildData(this, "PAPIExpansion.kt").setBinaryContent(papiExpansionFile.toByteArray())
         }
 
         if (stickyNoteBukkitCheckBox.selected) {

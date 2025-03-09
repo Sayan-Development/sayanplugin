@@ -10,6 +10,7 @@ class ClassMainBukkitTemplate {
     val settingsConfigCheckBox = DataManager.getTypedElement<CheckBoxElement>("generate_settings_config")!!
     val languageConfigCheckBox = DataManager.getTypedElement<CheckBoxElement>("generate_language_config")!!
     val mainCommandCheckBox = DataManager.getTypedElement<CheckBoxElement>("generate_main_command")!!
+    val dependencyPlaceholderAPIPapiExpansionCheckBox = DataManager.getTypedElement<CheckBoxElement>("generate_papiexpansion")!!
 
     val template = """
         package ${groupInput.field.text}.${DataManager.context.projectName.lowercase()}
@@ -27,6 +28,16 @@ class ClassMainBukkitTemplate {
         ${
             if (mainCommandCheckBox.selected) {
                 "import ${groupInput.field.text}.${DataManager.context.projectName.lowercase()}.command.${DataManager.context.projectName}Command"
+            } else { "<empty>" }
+        }
+        ${
+            if (dependencyPlaceholderAPIPapiExpansionCheckBox.selected) {
+                """
+                    import org.sayandev.stickynote.bukkit.log
+                    import org.sayandev.stickynote.bukkit.hasPlugin
+                    import org.sayandev.stickynote.bukkit.hook.PlaceholderAPIHook
+                    import ${groupInput.field.text}.${DataManager.context.projectName.lowercase()}.hook.PAPIExpansion
+                """.trimIndent()
             } else { "<empty>" }
         }
         import org.bukkit.plugin.java.JavaPlugin
@@ -48,7 +59,18 @@ class ClassMainBukkitTemplate {
             }
             ${
                 if (mainCommandCheckBox.selected) {
-                    "${DataManager.context.projectName}Command.registerLiterals()"
+                    "${DataManager.context.projectName}Command"
+                } else { "<empty>" }
+            }
+            ${
+                if (dependencyPlaceholderAPIPapiExpansionCheckBox.selected) {
+                    """
+                        if (hasPlugin("PlaceholderAPI")) {
+                            log("PlaceholderAPI found. Enabling PlaceholderAPI hook..")
+                            PlaceholderAPIHook.injectComponent()
+                            PAPIExpansion().register()
+                        }
+                    """.trimIndent()
                 } else { "<empty>" }
             }
             }

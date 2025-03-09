@@ -10,15 +10,8 @@ import org.sayandev.stickynote.bukkit.extension.sendComponent
 import org.sayandev.stickynote.bukkit.plugin
 
 object %plugin_name%Command : BukkitCommand(plugin.name.lowercase()) {
-    override fun rootBuilder(builder: MutableCommandBuilder<BukkitSender>) {
-        builder.permission("${plugin.name.lowercase()}.commands.${plugin.name.lowercase()}.use")
-        builder.handler { context ->
-            val player = context.sender().player() ?: return@handler
-            player.sendComponent("<rainbow>Hello from ${plugin.name.lowercase()}")
-        }
-    }
 
-    fun registerLiterals() {
+    init {
         rawCommandBuilder().registerCopy {
             literalWithPermission("foo")
             required("bar", StringParser.stringParser())
