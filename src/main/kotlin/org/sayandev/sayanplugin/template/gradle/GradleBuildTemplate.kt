@@ -254,16 +254,15 @@ bukkit {
             "website = \"${websiteInput.field.text}\""
         } else { "<empty>" }
     }
-    
     ${
         if (foliaSupportedCheckBox.selected) {
             "foliaSupported = true"
         } else { "<empty>" }
     }
-    
     apiVersion = "1.13"
     
     depend = listOf()
+    softDepend = listOf()
     
     authors = listOf(${authorsInput.field.text.split(",").joinToString(", ") { "\"${it.trim()}\"" }})
     prefix = rootProject.name
