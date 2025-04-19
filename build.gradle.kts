@@ -4,11 +4,8 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
     id("java")
-    alias(libs.plugins.kotlin)
-    alias(libs.plugins.intelliJPlatform)
-    alias(libs.plugins.changelog)
-    alias(libs.plugins.qodana)
-    alias(libs.plugins.kover)
+    id("org.jetbrains.kotlin.jvm") version "2.1.10"
+    id("org.jetbrains.intellij") version "1.17.4"
 }
 
 group = providers.gradleProperty("pluginGroup").get()

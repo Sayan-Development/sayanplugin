@@ -34,12 +34,25 @@ object ModuleCategory : List<Element> by listOf<Element>(
                     it.selected = false
                     it.update()
                 }
+                DataManager.getTypedElement<CheckBoxElement>("add_plugin_yaml_bukkit")?.let {
+                    it.selected = true
+                    it.update()
+                }
             }
             element.update()
         }, children = listOf(
             CheckBoxElement("generate_settings_config", "Generate Settings Config"),
             CheckBoxElement("generate_language_config", "Generate Language Config"),
             CheckBoxElement("generate_main_command", "Generate Main Command"),
+            CheckBoxElement("dependency_placeholderapi", "PlaceholderAPI", children = listOf(
+                DropDownElement("dependency_placeholderapi_version", "PlaceholderAPI Version", {
+                    CompletableDeferred(
+                        JsonConnection("https://api.github.com/repos/PlaceholderAPI/PlaceholderAPI/releases").fetch()
+                            .asJsonArray.mapNotNull { it.asJsonObject.get("tag_name")?.asString?.removePrefix("v") }
+                    )
+                }, null),
+                CheckBoxElement("generate_papiexpansion", "Generate Expansion")
+            )),
             CheckBoxElement("stickynote_bukkit_nms", "StickyNote Bukkit NMS"),
             DropDownElement("paper_version", "Paper Version", {
                 CompletableDeferred(
@@ -58,8 +71,15 @@ object ModuleCategory : List<Element> by listOf<Element>(
             CheckBoxElement("folia_supported", "Folia Supported", selected = true),
             DropDownElement("mapping", "Mapping", { CompletableDeferred(listOf("mojang", "spigot")) }, "mojang", editable = false),
             CheckBoxElement(
-                "add_runpaper", "Add RunPaper", children = listOf(
-                    CheckBoxElement("debug_tools", "Debug Tools"),
+                "add_runpaper", "Add RunPaper", onClick = { event, component, element ->
+                    if ((element as CheckBoxElement).selected) {
+                        DataManager.getTypedElement<CheckBoxElement>("debug_tools")?.let {
+                            it.selected = true
+                            it.update()
+                        }
+                    }
+                }, children = listOf(
+                    CheckBoxElement("debug_tools", "Debug Tools", selected = true),
                     DropDownElement("runpaper_version", "RunPaper Version", {
                         CompletableDeferred(
                             JsonConnection("https://api.github.com/repos/jpenilla/run-task/releases").fetch()

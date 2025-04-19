@@ -32,6 +32,9 @@ class GradleBuildTemplate {
     val allowLegacyFormattingCheckBox = DataManager.getTypedElement<CheckBoxElement>("allow_legacy_formatting")!!
     val runPaperPluginList = DataManager.getTypedElement<PluginListElement>("runpaper_plugins")!!
 
+    val dependencyPlaceholderAPI = DataManager.getTypedElement<CheckBoxElement>("dependency_placeholderapi")!!
+    val dependencyPlaceholderAPIVersion = DataManager.getTypedElement<DropDownElement>("dependency_placeholderapi_version")!!
+
     val addPluginYamlBukkitCheckBox = DataManager.getTypedElement<CheckBoxElement>("add_plugin_yaml_bukkit")!!
     val addPluginYamlBukkitDropDown = DataManager.getTypedElement<DropDownElement>("add_plugin_yaml_bukkit_version")!!
     val runTaskJavaVersion = DataManager.getTypedElement<DropDownElement>("run_task_java_version")!!
@@ -121,6 +124,11 @@ dependencies {
     ${
         if (paperWeightCheckBox.selected) {
             "paperweight.paperDevBundle(\"${paperVersionDropDown.comboBox.selectedItem as String}-R0.1-SNAPSHOT\")"
+        } else { "<empty>" }
+    }
+    ${
+        if (dependencyPlaceholderAPI.selected) {
+            "compileOnly(\"me.clip:placeholderapi:${dependencyPlaceholderAPIVersion.comboBox.selectedItem as String}\")"
         } else { "<empty>" }
     }
     compileOnly(fileTree("libs"))
@@ -246,16 +254,15 @@ bukkit {
             "website = \"${websiteInput.field.text}\""
         } else { "<empty>" }
     }
-    
     ${
         if (foliaSupportedCheckBox.selected) {
             "foliaSupported = true"
         } else { "<empty>" }
     }
-    
     apiVersion = "1.13"
     
     depend = listOf()
+    softDepend = listOf()
     
     authors = listOf(${authorsInput.field.text.split(",").joinToString(", ") { "\"${it.trim()}\"" }})
     prefix = rootProject.name

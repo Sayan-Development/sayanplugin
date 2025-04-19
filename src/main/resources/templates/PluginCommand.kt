@@ -17,7 +17,7 @@ object %plugin_name%Command : BukkitCommand(plugin.name.lowercase()) {
         }
     }
 
-    fun registerLiterals() {
+    init {
         rawCommandBuilder().registerCopy {
             literalWithPermission("reload")
             required("bar", StringParser.stringParser())
