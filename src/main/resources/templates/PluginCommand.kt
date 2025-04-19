@@ -14,13 +14,12 @@ object %plugin_name%Command : BukkitCommand(plugin.name.lowercase()) {
         builder.permission("${plugin.name.lowercase()}.commands.${plugin.name.lowercase()}.use")
         builder.handler { context ->
             val player = context.sender().player() ?: return@handler
-            player.sendComponent("<rainbow>Hello from ${plugin.name.lowercase()}")
         }
     }
 
     fun registerLiterals() {
         rawCommandBuilder().registerCopy {
-            literalWithPermission("foo")
+            literalWithPermission("reload")
             required("bar", StringParser.stringParser())
             handler { context ->
                 val sender = context.sender().platformSender()

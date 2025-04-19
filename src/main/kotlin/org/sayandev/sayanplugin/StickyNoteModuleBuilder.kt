@@ -19,8 +19,6 @@ import com.intellij.openapi.vfs.findDirectory
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.codeStyle.CodeStyleManager
-import com.intellij.testFramework.utils.vfs.getDirectory
-import okio.ByteString.Companion.toByteString
 import org.sayandev.sayanplugin.element.elements.CheckBoxElement
 import org.sayandev.sayanplugin.element.elements.InputElement
 import org.sayandev.sayanplugin.template.ClassMainBukkitTemplate
